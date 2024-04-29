@@ -19,7 +19,7 @@ const form = ref({
   mobile: '',
   name: '',
   qq: '',
-  wechat: '',
+  mailbox: '',
 })
 
 function handleSuccess(res: any) {
@@ -56,7 +56,7 @@ function editPassword() {
                   <ElInput v-model="form.qq" placeholder="请输入你的 QQ 号" />
                 </ElFormItem>
                 <ElFormItem label="邮 箱">
-                  <ElInput v-model="form.wechat" placeholder="请输入你的邮箱地址" />
+                  <ElInput v-model="form.mailbox" placeholder="请输入你的邮箱地址" />
                 </ElFormItem>
 
                 <ElFormItem>

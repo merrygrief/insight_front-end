@@ -7,7 +7,7 @@ meta:
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
-import useUserStore from '@/store/modules/user'
+import useUserStore, { FailReasons } from '@/store/modules/user'
 
 defineOptions({
   name: 'PersonalEditPassword',
@@ -44,16 +44,29 @@ const rules = ref<FormRules>({
     },
   ],
 })
-
+function get_real_error(err: string) {
+  return /: (.*)/.exec(err)?.at(1)
+}
 function onSubmit() {
   formRef.value && formRef.value.validate((valid) => {
     if (valid) {
       userStore.editPassword(form.value).then(() => {
         ElMessage({
           type: 'success',
-          message: '模拟修改成功，请重新登录',
+          message: '修改成功，请重新登录',
         })
         userStore.logout()
+      }).catch((err) => {
+        err.msg = get_real_error(err.msg)
+        if (err.msg === FailReasons.USER_NOT_EXIST.msg) {
+          ElMessage.error(FailReasons.USER_NOT_EXIST.desc)
+        }
+        else if (err.msg === FailReasons.PASSWORD_IS_EMPTY.msg) {
+          ElMessage.error(FailReasons.PASSWORD_IS_EMPTY.desc)
+        }
+        else if (err.msg === FailReasons.PASSWORD_IS_ERROR.msg) {
+          ElMessage.error(FailReasons.PASSWORD_IS_ERROR.desc)
+        }
       })
     }
   })

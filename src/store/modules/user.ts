@@ -10,6 +10,8 @@ const FailReasons = {
   USER_ACCOUNT_PASSWORD_ERROR: { msg: 'USER_ACCOUNT_PASSWORD_ERROR', desc: '账号密码错误' },
   USER_ACCOUNT_EXIST: { msg: 'USER_ACCOUNT_EXIST', desc: '账号已存在' },
   USER_NOT_EXIST: { msg: 'USER_NOT_EXIST', desc: '用户不存在' },
+  PASSWORD_IS_EMPTY: { msg: 'PASSWORD_IS_EMPTY', desc: '密码为空' },
+  PASSWORD_IS_ERROR: { msg: 'PASSWORD_IS_ERROR', desc: '密码错误' },
 }
 
 const useUserStore = defineStore(
@@ -75,13 +77,14 @@ const useUserStore = defineStore(
     //   const res = await apiUser.permission()
     //   permissions.value = res.data.permissions
     // }
-    // // 修改密码
-    // async function editPassword(data: {
-    //   password: string
-    //   newpassword: string
-    // }) {
-    //   await apiUser.passwordEdit(data)
-    // }
+
+    // 修改密码
+    async function editPassword(data: {
+      password: string
+      newpassword: string
+    }) {
+      await apiUser.passwordEdit(data)
+    }
 
     return {
       account,
@@ -93,7 +96,7 @@ const useUserStore = defineStore(
       register,
       logout,
       // getPermissions,
-      // editPassword,
+      editPassword,
     }
   },
 )
