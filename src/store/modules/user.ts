@@ -1,3 +1,4 @@
+import { log } from '@antv/g2plot/lib/utils'
 import useSettingsStore from './settings'
 import useRouteStore from './route'
 import useMenuStore from './menu'
@@ -7,6 +8,8 @@ import apiUser from '@/api/modules/user'
 const FailReasons = {
   USER_ACCOUNT_PASSWORD_IS_EMPTY: { msg: 'USER_ACCOUNT_PASSWORD_IS_EMPTY', desc: '账号密码为空' },
   USER_ACCOUNT_PASSWORD_ERROR: { msg: 'USER_ACCOUNT_PASSWORD_ERROR', desc: '账号密码错误' },
+  USER_ACCOUNT_EXIST: { msg: 'USER_ACCOUNT_EXIST', desc: '账号已存在' },
+  USER_NOT_EXIST: { msg: 'USER_NOT_EXIST', desc: '用户不存在' },
 }
 
 const useUserStore = defineStore(
@@ -47,13 +50,7 @@ const useUserStore = defineStore(
       password: string
       mailbox: string
     }) {
-      const res = await apiUser.register(data)
-      localStorage.setItem('account', res.data.account)
-      localStorage.setItem('token', res.data.token)
-      localStorage.setItem('avatar', res.data.avatar)
-      account.value = res.data.account
-      token.value = res.data.token
-      avatar.value = res.data.avatar
+      await apiUser.register(data)
     }
     // 登出
     async function logout(redirect = router.currentRoute.value.fullPath) {

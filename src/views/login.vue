@@ -48,6 +48,9 @@ const loginRules = ref<FormRules>({
     { min: 6, max: 18, trigger: 'blur', message: '密码长度为6到18位' },
   ],
 })
+function get_real_error(err: string) {
+  return /: (.*)/.exec(err)?.at(1)
+}
 function handleLogin() {
   loginFormRef.value && loginFormRef.value.validate((valid) => {
     if (valid) {
@@ -83,9 +86,7 @@ const registerForm = ref({
   password: '',
   checkPassword: '',
 })
-function get_real_error(err: string) {
-  return /: (.*)/.exec(err)?.at(1)
-}
+
 const registerRules = ref<FormRules>({
   account: [
     { required: true, trigger: 'blur', message: '请输入用户名' },
@@ -118,12 +119,22 @@ function handleRegister() {
   // })
   registerFormRef.value && registerFormRef.value.validate((valid) => {
     if (valid) {
-      register.value = true
       // 这里编写业务代码
+      register.value = true
       userStore.register(registerForm.value).then(() => {
         register.value = false
-        router.push(redirect.value)
-      }).catch(() => {
+        // 注册后直接登录
+        loginForm.value.account = registerForm.value.account
+        loginForm.value.password = registerForm.value.password
+        handleLogin()
+      }).catch((err) => {
+        err.msg = get_real_error(err.msg)
+        if (err.msg === FailReasons.USER_ACCOUNT_EXIST.msg) {
+          ElMessage.error(FailReasons.USER_ACCOUNT_EXIST.desc)
+        }
+        else if (err.msg === FailReasons.USER_NOT_EXIST.msg) {
+          ElMessage.error(FailReasons.USER_NOT_EXIST.desc)
+        }
         loading.value = false
       })
     }
