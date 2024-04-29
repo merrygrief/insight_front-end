@@ -25,11 +25,11 @@ const useUserStore = defineStore(
 
     // 登录
     async function login(data: {
-      account: string
+      username: string
       password: string
     }) {
       const res = await apiUser.login(data)
-      localStorage.setItem('account', res.data.account)
+      localStorage.setItem('username', res.data.account)
       localStorage.setItem('token', res.data.token)
       localStorage.setItem('avatar', res.data.avatar)
       account.value = res.data.account
@@ -54,18 +54,18 @@ const useUserStore = defineStore(
         },
       })
     }
-    // 获取权限
-    async function getPermissions() {
-      const res = await apiUser.permission()
-      permissions.value = res.data.permissions
-    }
-    // 修改密码
-    async function editPassword(data: {
-      password: string
-      newpassword: string
-    }) {
-      await apiUser.passwordEdit(data)
-    }
+    // // 获取权限
+    // async function getPermissions() {
+    //   const res = await apiUser.permission()
+    //   permissions.value = res.data.permissions
+    // }
+    // // 修改密码
+    // async function editPassword(data: {
+    //   password: string
+    //   newpassword: string
+    // }) {
+    //   await apiUser.passwordEdit(data)
+    // }
 
     return {
       account,
@@ -75,8 +75,8 @@ const useUserStore = defineStore(
       isLogin,
       login,
       logout,
-      getPermissions,
-      editPassword,
+      // getPermissions,
+      // editPassword,
     }
   },
 )
