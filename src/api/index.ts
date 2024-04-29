@@ -47,7 +47,7 @@ api.interceptors.response.use(
         return Promise.reject(response.data)
       }
     }
-    else {
+    else if (response.data.code !== 'success') {
       useUserStore().logout()
     }
     return Promise.resolve(response.data)

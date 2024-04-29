@@ -1,8 +1,8 @@
 import api from '../index'
 
 export default {
-  // 登录
-  food: () => api.get('food/foodcate', {
+  // 食物列表
+  foodcate: () => api.get('food/foodcate', {
     baseURL: '/proxy/api/',
   }),
 
@@ -14,7 +14,7 @@ export default {
   }),
 
   // 所有食物，用于搜索
-  passwordEdit: () => api.get('food/foodlist', {
+  allfoodlist: () => api.get('food/foodlist', {
     baseURL: '/proxy/api/',
   }),
 }

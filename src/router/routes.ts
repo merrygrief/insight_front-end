@@ -91,6 +91,15 @@ const systemRoutes: RouteRecordRaw[] = [
 const asyncRoutes: Route.recordMainRaw[] = [
   {
     meta: {
+      title: '食物查询',
+      icon: 'i-uim:box',
+    },
+    children: [
+      Food,
+    ],
+  },
+  {
+    meta: {
       title: '演示',
       icon: 'i-uim:box',
     },

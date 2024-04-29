@@ -14,19 +14,19 @@ const routes: RouteRecordRaw = {
   },
   children: [
     {
-      path: 'a',
-      name: 'a',
+      path: 'foodlist',
+      name: 'foodlist',
       component: () => import('@/views/food/components/foodcate.vue'),
       meta: {
         title: '食物列表',
       },
     },
     {
-      path: 'iconify',
-      name: 'iconExampleIconify',
-      component: () => import('@/views/icon_example/iconify.vue'),
+      path: 'foodSearch',
+      name: 'foodSearch',
+      component: () => import('@/views/food/components/search.vue'),
       meta: {
-        title: 'Iconify',
+        title: '食物查询',
       },
     },
   ],
