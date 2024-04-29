@@ -2,23 +2,19 @@ import api from '../index'
 
 export default {
   // 登录
-  login: (data: {
-    account: string
-    password: string
-  }) => api.post('user/login', data, {
-    baseURL: '/mock/',
+  food: () => api.get('food/foodcate', {
+    baseURL: '/api/',
   }),
 
-  // 获取权限
-  permission: () => api.get('user/permission', {
-    baseURL: '/mock/',
+  // 食物列表，通过cateId查询
+  catefoodlist: (data: {
+    cateId: string
+  }) => api.post('food/catefoodlist', data, {
+    baseURL: '/api/',
   }),
 
-  // 修改密码
-  passwordEdit: (data: {
-    password: string
-    newpassword: string
-  }) => api.post('user/password/edit', data, {
-    baseURL: '/mock/',
+  // 所有食物，用于搜索
+  passwordEdit: () => api.get('food/foodlist', {
+    baseURL: '/api/',
   }),
 }

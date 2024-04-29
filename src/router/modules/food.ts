@@ -18,7 +18,7 @@ const routes: RouteRecordRaw = {
       name: 'a',
       component: () => import('@/views/food/components/foodcate.vue'),
       meta: {
-        title: 'food',
+        title: '食物列表',
       },
     },
     {
