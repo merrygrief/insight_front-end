@@ -34,12 +34,12 @@ const redirect = ref(route.query.redirect?.toString() ?? settingsStore.settings.
 // 登录
 const loginFormRef = ref<FormInstance>()
 const loginForm = ref({
-  username: localStorage.login_username || '',
+  account: localStorage.login_account || '',
   password: '',
-  remember: !!localStorage.login_username,
+  remember: !!localStorage.login_account,
 })
 const loginRules = ref<FormRules>({
-  username: [
+  account: [
     { required: true, trigger: 'blur', message: '请输入用户名' },
   ],
   password: [
@@ -54,10 +54,10 @@ function handleLogin() {
       userStore.login(loginForm.value).then(() => {
         loading.value = false
         if (loginForm.value.remember) {
-          localStorage.setItem('login_username', loginForm.value.username)
+          localStorage.setItem('login_account', loginForm.value.account)
         }
         else {
-          localStorage.removeItem('login_username')
+          localStorage.removeItem('login_account')
         }
         router.push(redirect.value)
       }).catch(() => {
@@ -70,13 +70,13 @@ function handleLogin() {
 // 注册
 const registerFormRef = ref<FormInstance>()
 const registerForm = ref({
-  username: '',
+  account: '',
   captcha: '',
   password: '',
   checkPassword: '',
 })
 const registerRules = ref<FormRules>({
-  username: [
+  account: [
     { required: true, trigger: 'blur', message: '请输入用户名' },
   ],
   captcha: [
@@ -115,12 +115,12 @@ function handleRegister() {
 // 重置密码
 const resetFormRef = ref<FormInstance>()
 const resetForm = ref({
-  username: localStorage.login_username,
+  account: localStorage.login_account,
   captcha: '',
   newPassword: '',
 })
 const resetRules = ref<FormRules>({
-  username: [
+  account: [
     { required: true, trigger: 'blur', message: '请输入用户名' },
   ],
   captcha: [
@@ -143,8 +143,8 @@ function handleReset() {
   })
 }
 
-function testusername(username: string) {
-  loginForm.value.username = username
+function testaccount(account: string) {
+  loginForm.value.account = account
   loginForm.value.password = '123456'
   handleLogin()
 }
@@ -165,8 +165,8 @@ function testusername(username: string) {
           </h3>
         </div>
         <div>
-          <ElFormItem prop="username">
-            <ElInput v-model="loginForm.username" placeholder="用户名" type="text" tabindex="1">
+          <ElFormItem prop="account">
+            <ElInput v-model="loginForm.account" placeholder="用户名" type="text" tabindex="1">
               <template #prefix>
                 <SvgIcon name="i-ri:user-3-fill" />
               </template>
@@ -199,10 +199,10 @@ function testusername(username: string) {
         </div>
         <div style="margin-top: 20px; margin-bottom: -20px; text-align: center;">
           <ElDivider>演示账号一键登录</ElDivider>
-          <ElButton type="primary" size="small" plain @click="testusername('admin')">
+          <ElButton type="primary" size="small" plain @click="testaccount('admin')">
             admin
           </ElButton>
-          <ElButton size="small" plain @click="testusername('test01')">
+          <ElButton size="small" plain @click="testaccount('test01')">
             test
           </ElButton>
         </div>
@@ -214,8 +214,8 @@ function testusername(username: string) {
           </h3>
         </div>
         <div>
-          <ElFormItem prop="username">
-            <ElInput v-model="registerForm.username" placeholder="用户名" tabindex="1">
+          <ElFormItem prop="account">
+            <ElInput v-model="registerForm.account" placeholder="用户名" tabindex="1">
               <template #prefix>
                 <SvgIcon name="i-ri:user-3-fill" />
               </template>
@@ -263,8 +263,8 @@ function testusername(username: string) {
           </h3>
         </div>
         <div>
-          <ElFormItem prop="username">
-            <ElInput v-model="resetForm.username" placeholder="用户名" type="text" tabindex="1">
+          <ElFormItem prop="account">
+            <ElInput v-model="resetForm.account" placeholder="用户名" type="text" tabindex="1">
               <template #prefix>
                 <SvgIcon name="i-ri:user-3-fill" />
               </template>

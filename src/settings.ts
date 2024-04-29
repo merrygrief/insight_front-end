@@ -4,7 +4,7 @@ import settingsDefault from '@/settings.default'
 
 const globalSettings: Settings.all = {
   app: {
-    enablePermission: true,
+    enablePermission: false,
     enableDynamicTitle: true,
   },
   layout: {

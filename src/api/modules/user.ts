@@ -3,7 +3,7 @@ import api from '../index'
 export default {
   // 登录
   login: (data: {
-    username: string
+    account: string
     password: string
   }) => api.post('user/login', data, {
     baseURL: '/proxy/api/',
@@ -24,7 +24,7 @@ export default {
 
   // 注册
   register: (data: {
-    username: string
+    account: string
     password: string
     mailbox: string
   }) => api.post('user/register', data, {
