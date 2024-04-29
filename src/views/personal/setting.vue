@@ -7,6 +7,7 @@ meta:
 
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 
 defineOptions({
   name: 'PersonalSetting',
@@ -14,27 +15,62 @@ defineOptions({
 
 const router = useRouter()
 
+const formRef = ref<FormInstance>()
 const form = ref({
-  headimg: '',
-  mobile: '',
-  name: '',
-  qq: '',
+  nickname: '',
+  gender: '',
   mailbox: '',
+  phonenum: '',
 })
 
-function handleSuccess(res: any) {
-  if (res.error === '') {
-    form.value.headimg = res.data.path
-  }
-  else {
-    ElMessage.warning(res.error)
-  }
-}
+// function handleSuccess(res: any) {
+//   if (res.error === '') {
+//     form.value.headimg = res.data.path
+//   }
+//   else {
+//     ElMessage.warning(res.error)
+//   }
+// }
 function editPassword() {
   router.push({
     name: 'personalEditPassword',
   })
 }
+function editPhonenum() {
+  router.push({
+    name: 'personalEditPhonenum',
+  })
+}
+function editMailbox() {
+  router.push({
+    name: 'personalEditPhonenum',
+  })
+}
+
+// function onSubmit() {
+//   formRef.value && formRef.value.validate((valid) => {
+//     if (valid) {
+//       userStore.editPassword(form.value).then(() => {
+//         ElMessage({
+//           type: 'success',
+//           message: '修改成功，请重新登录',
+//         })
+//         userStore.logout()
+//       }).catch((err) => {
+//         err.msg = get_real_error(err.msg)
+//         if (err.msg === FailReasons.USER_NOT_EXIST.msg) {
+//           ElMessage.error(FailReasons.USER_NOT_EXIST.desc)
+//         }
+//         else if (err.msg === FailReasons.PASSWORD_IS_EMPTY.msg) {
+//           ElMessage.error(FailReasons.PASSWORD_IS_EMPTY.desc)
+//         }
+//         else if (err.msg === FailReasons.PASSWORD_IS_ERROR.msg) {
+//           ElMessage.error(FailReasons.PASSWORD_IS_ERROR.desc)
+//         }
+//       })
+//     }
+//   })
+// }
 </script>
 
 <template>
@@ -46,17 +82,24 @@ function editPassword() {
           <ElRow :gutter="20">
             <ElCol :span="16">
               <ElForm :model="form" label-width="120px" label-suffix="：">
-                <ElFormItem label="名 称">
-                  <ElInput v-model="form.name" placeholder="请输入你的名称" />
+                <ElFormItem label="昵 称">
+                  <ElInput v-model="form.nickname" placeholder="请输入你的昵称" />
                 </ElFormItem>
-                <ElFormItem label="手机号">
-                  <ElInput v-model="form.mobile" placeholder="请输入你的手机号" />
-                </ElFormItem>
-                <ElFormItem label="QQ 号">
-                  <ElInput v-model="form.qq" placeholder="请输入你的 QQ 号" />
+                <ElFormItem label="性 别">
+                  <ElRadioGroup v-model="form.gender">
+                    <el-radio :label="1">
+                      男
+                    </el-radio>
+                    <el-radio :label="2">
+                      女
+                    </el-radio>
+                  </ElRadioGroup>
                 </ElFormItem>
                 <ElFormItem label="邮 箱">
                   <ElInput v-model="form.mailbox" placeholder="请输入你的邮箱地址" />
+                </ElFormItem>
+                <ElFormItem label="手机号">
+                  <ElInput v-model="form.phonenum" placeholder="请输入你的手机号" />
                 </ElFormItem>
 
                 <ElFormItem>
@@ -65,9 +108,6 @@ function editPassword() {
                   </ElButton>
                 </ElFormItem>
               </ElForm>
-            </ElCol>
-            <ElCol :span="8">
-              <ImageUpload v-model:url="form.headimg" action="http://scrm.1daas.com/api/upload/upload" name="image" :data="{ token: 'TKD628431923530324' }" notip class="headimg-upload" @on-success="handleSuccess" />
             </ElCol>
           </ElRow>
         </ElTabPane>
@@ -99,7 +139,7 @@ function editPassword() {
                 </div>
               </div>
               <div class="action">
-                <ElButton type="primary" text>
+                <ElButton type="primary" text @click="editPhonenum">
                   修改
                 </ElButton>
               </div>
@@ -114,7 +154,7 @@ function editPassword() {
                 </div>
               </div>
               <div class="action">
-                <ElButton type="primary" text>
+                <ElButton type="primary" text @click="editMailbox">
                   绑定
                 </ElButton>
               </div>

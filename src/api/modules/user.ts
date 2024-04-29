@@ -30,4 +30,5 @@ export default {
   }) => api.post('user/register', data, {
     baseURL: '/proxy/api/',
   }),
+
 }
