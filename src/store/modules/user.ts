@@ -36,6 +36,20 @@ const useUserStore = defineStore(
       token.value = res.data.token
       avatar.value = res.data.avatar
     }
+    // 注册
+    async function register(data: {
+      account: string
+      password: string
+      mailbox: string
+    }) {
+      const res = await apiUser.register(data)
+      localStorage.setItem('account', res.data.account)
+      localStorage.setItem('token', res.data.token)
+      localStorage.setItem('avatar', res.data.avatar)
+      account.value = res.data.account
+      token.value = res.data.token
+      avatar.value = res.data.avatar
+    }
     // 登出
     async function logout(redirect = router.currentRoute.value.fullPath) {
       localStorage.removeItem('account')
@@ -74,6 +88,7 @@ const useUserStore = defineStore(
       permissions,
       isLogin,
       login,
+      register,
       logout,
       // getPermissions,
       // editPassword,

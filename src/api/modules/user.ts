@@ -28,6 +28,6 @@ export default {
     password: string
     mailbox: string
   }) => api.post('user/register', data, {
-    baseURL: '/api/',
+    baseURL: '/proxy/api/',
   }),
 }

@@ -55,9 +55,10 @@ function editPassword() {
                 <ElFormItem label="QQ 号">
                   <ElInput v-model="form.qq" placeholder="请输入你的 QQ 号" />
                 </ElFormItem>
-                <ElFormItem label="微信号">
-                  <ElInput v-model="form.wechat" placeholder="请输入你的微信号" />
+                <ElFormItem label="邮 箱">
+                  <ElInput v-model="form.wechat" placeholder="请输入你的邮箱地址" />
                 </ElFormItem>
+
                 <ElFormItem>
                   <ElButton type="primary">
                     保存

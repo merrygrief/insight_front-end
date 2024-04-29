@@ -29,6 +29,7 @@ const title = import.meta.env.VITE_APP_TITLE
 // 表单类型，login 登录，register 注册，reset 重置密码
 const formType = ref('login')
 const loading = ref(false)
+const register = ref(false)
 const redirect = ref(route.query.redirect?.toString() ?? settingsStore.settings.home.fullPath)
 
 // 登录
@@ -71,7 +72,7 @@ function handleLogin() {
 const registerFormRef = ref<FormInstance>()
 const registerForm = ref({
   account: '',
-  captcha: '',
+  mailbox: '',
   password: '',
   checkPassword: '',
 })
@@ -79,8 +80,8 @@ const registerRules = ref<FormRules>({
   account: [
     { required: true, trigger: 'blur', message: '请输入用户名' },
   ],
-  captcha: [
-    { required: true, trigger: 'blur', message: '请输入验证码' },
+  mailbox: [
+    { required: true, trigger: 'blur', message: '请输入邮箱验证' },
   ],
   password: [
     { required: true, trigger: 'blur', message: '请输入密码' },
@@ -101,16 +102,35 @@ const registerRules = ref<FormRules>({
   ],
 })
 function handleRegister() {
-  ElMessage({
-    message: '注册模块仅提供界面演示，无实际功能，需开发者自行扩展',
-    type: 'warning',
-  })
+  // ElMessage({
+  //   message: '注册模块仅提供界面演示，无实际功能，需开发者自行扩展',
+  //   type: 'warning',
+  // })
   registerFormRef.value && registerFormRef.value.validate((valid) => {
     if (valid) {
+      register.value = true
       // 这里编写业务代码
+      userStore.register(registerForm.value).then(() => {
+        register.value = false
+        router.push(redirect.value)
+      }).catch(() => {
+        loading.value = false
+      })
     }
   })
 }
+
+// function handleMail() {
+//   ElMessage({
+//     message: '发送邮箱验证码',
+//     type: 'warning',
+//   })
+//   registerFormRef.value && registerFormRef.value.validate((valid) => {
+//     if (valid) {
+//       // 这里编写业务代码
+//     }
+//   })
+// }
 
 // 重置密码
 const resetFormRef = ref<FormInstance>()
@@ -221,13 +241,15 @@ function testaccount(account: string) {
               </template>
             </ElInput>
           </ElFormItem>
-          <ElFormItem prop="captcha">
-            <ElInput v-model="registerForm.captcha" placeholder="验证码" tabindex="2">
+          <ElFormItem prop="mailbox">
+            <ElInput v-model="registerForm.mailbox" placeholder="邮箱" tabindex="2">
               <template #prefix>
                 <SvgIcon name="i-ic:baseline-verified-user" />
               </template>
               <template #append>
-                <ElButton>发送验证码</ElButton>
+                <ElButton>
+                  发送验证码
+                </ElButton>
               </template>
             </ElInput>
           </ElFormItem>
