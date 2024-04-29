@@ -13,6 +13,7 @@ const globalSettings: Settings.all = {
   menu: {
     enableSubMenuCollapseButton: true,
     enableHotkeys: true,
+    menuMode: 'head',
   },
   topbar: {
     mode: 'fixed',
