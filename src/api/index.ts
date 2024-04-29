@@ -40,10 +40,10 @@ api.interceptors.response.use(
      */
     if (response.data.code === 'fail') {
       if (response.data.msg !== '') {
-        // 错误提示
-        Message.error(response.data.msg, {
-          zIndex: 2000,
-        })
+        // 错误提示, 已在login.vue处理对应信息
+        // Message.error(response.data.msg, {
+        //   zIndex: 2000,
+        // })
         return Promise.reject(response.data)
       }
     }

@@ -4,6 +4,11 @@ import useMenuStore from './menu'
 import router from '@/router'
 import apiUser from '@/api/modules/user'
 
+const FailReasons = {
+  USER_ACCOUNT_PASSWORD_IS_EMPTY: { msg: 'USER_ACCOUNT_PASSWORD_IS_EMPTY', desc: '账号密码为空' },
+  USER_ACCOUNT_PASSWORD_ERROR: { msg: 'USER_ACCOUNT_PASSWORD_ERROR', desc: '账号密码错误' },
+}
+
 const useUserStore = defineStore(
   // 唯一ID
   'user',
@@ -96,4 +101,5 @@ const useUserStore = defineStore(
   },
 )
 
+export { FailReasons }
 export default useUserStore

@@ -10,7 +10,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import Copyright from '@/layouts/components/Copyright/index.vue'
 import useSettingsStore from '@/store/modules/settings'
-import useUserStore from '@/store/modules/user'
+import useUserStore, { FailReasons } from '@/store/modules/user'
 
 defineOptions({
   name: 'Login',
@@ -61,7 +61,14 @@ function handleLogin() {
           localStorage.removeItem('login_account')
         }
         router.push(redirect.value)
-      }).catch(() => {
+      }).catch((err) => {
+        err.msg = get_real_error(err.msg)
+        if (err.msg === FailReasons.USER_ACCOUNT_PASSWORD_IS_EMPTY.msg) {
+          ElMessage.error(FailReasons.USER_ACCOUNT_PASSWORD_IS_EMPTY.desc)
+        }
+        else if (err.msg === FailReasons.USER_ACCOUNT_PASSWORD_ERROR.msg) {
+          ElMessage.error(FailReasons.USER_ACCOUNT_PASSWORD_ERROR.desc)
+        }
         loading.value = false
       })
     }
@@ -76,6 +83,9 @@ const registerForm = ref({
   password: '',
   checkPassword: '',
 })
+function get_real_error(err: string) {
+  return /: (.*)/.exec(err)?.at(1)
+}
 const registerRules = ref<FormRules>({
   account: [
     { required: true, trigger: 'blur', message: '请输入用户名' },
