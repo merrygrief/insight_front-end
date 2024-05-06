@@ -195,14 +195,10 @@ function testaccount(account: string) {
   <div>
     <div class="bg-banner" />
     <div id="login-box">
-      <div class="login-banner">
-        <img :src="logo" class="logo">
-        <img :src="banner" class="banner">
-      </div>
       <ElForm v-show="formType === 'login'" ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
         <div class="title-container">
           <h3 class="title">
-            欢迎来到 {{ title }} ! 👋🏻
+            欢迎使用 {{ title }} ~
           </h3>
         </div>
         <div>
@@ -251,7 +247,7 @@ function testaccount(account: string) {
       <ElForm v-show="formType === 'register'" ref="registerFormRef" :model="registerForm" :rules="registerRules" class="login-form" auto-complete="on">
         <div class="title-container">
           <h3 class="title">
-            探索从这里开始! 🚀
+            探索从这里开始!
           </h3>
         </div>
         <div>
@@ -341,7 +337,7 @@ function testaccount(account: string) {
         </div>
       </ElForm>
     </div>
-    <Copyright />
+    <!-- <Copyright /> -->
   </div>
 </template>
 

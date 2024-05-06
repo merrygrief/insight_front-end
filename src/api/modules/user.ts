@@ -31,4 +31,19 @@ export default {
     baseURL: '/proxy/api/',
   }),
 
+  // 修改信息
+  userinfoEdit: (data: {
+    nickname: string
+    gender: string
+    mailbox: string
+    phonenum: string
+  }) => api.post('user/userinfo_edit', data, {
+    baseURL: '/proxy/api/',
+  }),
+
+  // 获取信息
+  userinfoGet: () => api.get('user/userinfo', {
+    baseURL: '/proxy/api/',
+  }),
+
 }

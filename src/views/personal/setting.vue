@@ -8,15 +8,25 @@ meta:
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
 import type { FormInstance } from 'element-plus'
+import useStore from 'element-plus/es/components/table/src/store/index.mjs'
+import apiUser from '@/api/modules/user'
+import useUserStore, { FailReasons } from '@/store/modules/user'
 
 defineOptions({
   name: 'PersonalSetting',
 })
 
+const userStore = useUserStore()
 const router = useRouter()
 
 const formRef = ref<FormInstance>()
 const form = ref({
+  nickname: '',
+  gender: '',
+  mailbox: '',
+  phonenum: '',
+})
+const dataGet = ref({
   nickname: '',
   gender: '',
   mailbox: '',
@@ -47,30 +57,28 @@ function editMailbox() {
   })
 }
 
-// function onSubmit() {
-//   formRef.value && formRef.value.validate((valid) => {
-//     if (valid) {
-//       userStore.editPassword(form.value).then(() => {
-//         ElMessage({
-//           type: 'success',
-//           message: '修改成功，请重新登录',
-//         })
-//         userStore.logout()
-//       }).catch((err) => {
-//         err.msg = get_real_error(err.msg)
-//         if (err.msg === FailReasons.USER_NOT_EXIST.msg) {
-//           ElMessage.error(FailReasons.USER_NOT_EXIST.desc)
-//         }
-//         else if (err.msg === FailReasons.PASSWORD_IS_EMPTY.msg) {
-//           ElMessage.error(FailReasons.PASSWORD_IS_EMPTY.desc)
-//         }
-//         else if (err.msg === FailReasons.PASSWORD_IS_ERROR.msg) {
-//           ElMessage.error(FailReasons.PASSWORD_IS_ERROR.desc)
-//         }
-//       })
-//     }
-//   })
-// }
+function onSubmit(form: {
+  nickname: string
+  gender: string
+  mailbox: string
+  phonenum: string
+}) {
+  apiUser.userinfoEdit(form).then(() => {
+    // eslint-disable-next-line eqeqeq
+    if (form.nickname != '') {
+      userStore.account = form.nickname
+    }
+    getUserInfo()
+  })
+}
+
+function getUserInfo() {
+  apiUser.userinfoGet().then((res) => {
+    dataGet.value = res.data
+    form.value.gender = dataGet.value.gender === '男' ? '0' : '1'
+  })
+}
+getUserInfo()
 </script>
 
 <template>
@@ -83,27 +91,27 @@ function editMailbox() {
             <ElCol :span="16">
               <ElForm :model="form" label-width="120px" label-suffix="：">
                 <ElFormItem label="昵 称">
-                  <ElInput v-model="form.nickname" placeholder="请输入你的昵称" />
+                  <ElInput v-model="form.nickname" :placeholder="dataGet.nickname" />
                 </ElFormItem>
                 <ElFormItem label="性 别">
                   <ElRadioGroup v-model="form.gender">
-                    <el-radio :label="1">
+                    <el-radio label="0">
                       男
                     </el-radio>
-                    <el-radio :label="2">
+                    <el-radio label="1">
                       女
                     </el-radio>
                   </ElRadioGroup>
                 </ElFormItem>
                 <ElFormItem label="邮 箱">
-                  <ElInput v-model="form.mailbox" placeholder="请输入你的邮箱地址" />
+                  <ElInput v-model="form.mailbox" :placeholder="dataGet.mailbox" />
                 </ElFormItem>
                 <ElFormItem label="手机号">
-                  <ElInput v-model="form.phonenum" placeholder="请输入你的手机号" />
+                  <ElInput v-model="form.phonenum" :placeholder="dataGet.phonenum" />
                 </ElFormItem>
 
                 <ElFormItem>
-                  <ElButton type="primary">
+                  <ElButton type="primary" @click="onSubmit(form)">
                     保存
                   </ElButton>
                 </ElFormItem>

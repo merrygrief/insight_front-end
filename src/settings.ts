@@ -19,17 +19,17 @@ const globalSettings: Settings.all = {
     mode: 'fixed',
   },
   tabbar: {
-    enable: true,
-    enableIcon: true,
-    enableHotkeys: true,
+    enable: false,
+    enableIcon: false,
+    enableHotkeys: false,
   },
   toolbar: {
-    fullscreen: true,
-    pageReload: true,
-    colorScheme: true,
+    fullscreen: false,
+    pageReload: false,
+    colorScheme: false,
   },
   mainPage: {
-    enableHotkeys: true,
+    enableHotkeys: false,
   },
   copyright: {
     enable: true,

@@ -1,20 +1,22 @@
 import { setupLayouts } from 'virtual:meta-layouts'
 import generatedRoutes from 'virtual:generated-pages'
 import type { RouteRecordRaw } from 'vue-router'
-import MultilevelMenuExample from './modules/multilevel.menu.example'
-import BreadcrumbExample from './modules/breadcrumb.example'
-import KeepAliveExample from './modules/keep.alive.example'
-import TabExample from './modules/tab.example'
-import ComponentExample from './modules/component.example'
-import IconExample from './modules/icon.example'
-import FeatureExample from './modules/feature.example'
-import PluginExample from './modules/plugin.example'
-import PermissionExample from './modules/permission.example'
-import MockExample from './modules/mock.example'
-import JsxExample from './modules/jsx.example'
-import ExternalLinkExample from './modules/external.link.example'
-import EcologyExample from './modules/ecology.example'
+// import MultilevelMenuExample from './modules/multilevel.menu.example'
+// import BreadcrumbExample from './modules/breadcrumb.example'
+// import KeepAliveExample from './modules/keep.alive.example'
+// import TabExample from './modules/tab.example'
+// import ComponentExample from './modules/component.example'
+// import IconExample from './modules/icon.example'
+// import FeatureExample from './modules/feature.example'
+// import PluginExample from './modules/plugin.example'
+// import PermissionExample from './modules/permission.example'
+// import MockExample from './modules/mock.example'
+// import JsxExample from './modules/jsx.example'
+// import ExternalLinkExample from './modules/external.link.example'
+// import EcologyExample from './modules/ecology.example'
 import Food from './modules/food'
+import Health from './modules/health'
+import Tips from './modules/tips'
 import type { Route } from '#/global'
 import useSettingsStore from '@/store/modules/settings'
 
@@ -91,32 +93,34 @@ const systemRoutes: RouteRecordRaw[] = [
 const asyncRoutes: Route.recordMainRaw[] = [
   {
     meta: {
-      title: '食物查询',
+      title: '信息查询',
       icon: 'i-uim:box',
     },
     children: [
       Food,
+      Tips,
     ],
   },
   {
     meta: {
-      title: '演示',
+      title: '健康管理',
       icon: 'i-uim:box',
     },
     children: [
-      MultilevelMenuExample,
-      BreadcrumbExample,
-      KeepAliveExample,
-      TabExample,
-      ComponentExample,
-      IconExample,
-      FeatureExample,
-      PluginExample,
-      PermissionExample,
-      MockExample,
-      JsxExample,
-      ExternalLinkExample,
-      Food,
+      Health,
+      // MultilevelMenuExample,
+      // BreadcrumbExample,
+      // KeepAliveExample,
+      // TabExample,
+      // ComponentExample,
+      // IconExample,
+      // FeatureExample,
+      // PluginExample,
+      // PermissionExample,
+      // MockExample,
+      // JsxExample,
+      // ExternalLinkExample,
+      // Food,
     ],
   },
   {
@@ -125,7 +129,7 @@ const asyncRoutes: Route.recordMainRaw[] = [
       icon: 'i-icon-park-outline:circular-connection',
     },
     children: [
-      ...EcologyExample,
+      // ...EcologyExample,
     ],
   },
 ]

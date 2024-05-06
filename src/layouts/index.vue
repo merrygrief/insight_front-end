@@ -10,7 +10,7 @@ import AppSetting from './components/AppSetting/index.vue'
 import LinkView from './components/views/link.vue'
 import Copyright from './components/Copyright/index.vue'
 import BackTop from './components/BackTop/index.vue'
-import BuyIt from './components/BuyIt/index.vue'
+// import BuyIt from './components/BuyIt/index.vue'
 import useSettingsStore from '@/store/modules/settings'
 import useKeepAliveStore from '@/store/modules/keepAlive'
 import useMenuStore from '@/store/modules/menu'
@@ -107,7 +107,7 @@ const enableAppSetting = import.meta.env.VITE_APP_SETTING === 'true'
       <AppSetting />
     </template>
     <BackTop />
-    <BuyIt />
+    <!-- <BuyIt /> -->
   </div>
 </template>
 

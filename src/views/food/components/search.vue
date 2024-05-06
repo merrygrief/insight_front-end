@@ -22,7 +22,7 @@ export default {
       foodName: '',
 
       all_list: [{
-        fid: '0',
+        gsbrid: '0',
         foodName: '',
         foodColoriesVal: '',
         foodProteinVal: '',
@@ -107,7 +107,7 @@ export default {
       </el-row>
     </el-card>
     <el-card id="result" class="box-card">
-      <el-table :data="filteredTableData()" border style="width: 100%;">
+      <el-table :data="filteredTableData()" height="1000" border style="width: 100%;">
         <el-table-column type="index" label="序号" width="100" />
         <el-table-column prop="foodName" label="食物名" width="180">
           <!-- <template #default="scope">
@@ -119,10 +119,10 @@ export default {
           </template> -->
         </el-table-column>
         <!-- <el-table-column prop="category" label="类别" :filters="categoryFilters()" :filter-method="categoryFilterMethod" width="180" /> -->
-        <el-table-column prop="foodColoriesVal" label="热量" />
-        <el-table-column prop="foodProteinVal" label="蛋白质" />
-        <el-table-column prop="foodFatVal" label="脂肪" />
-        <el-table-column prop="foodCarbohydrate" label="碳水化合物" />
+        <el-table-column prop="foodColoriesVal" label="热量（千卡/100克）" />
+        <el-table-column prop="foodProteinVal" label="蛋白质（克/100克）" />
+        <el-table-column prop="foodFatVal" label="脂肪（克/100克）" />
+        <el-table-column prop="foodCarbohydrate" label="碳水化合物（克/100克）" />
       </el-table>
     </el-card>
   </div>
@@ -133,7 +133,7 @@ export default {
   margin-right: 50px;
 }
 
-.el-card {
+/* .el-card {
   margin: 10px;
-}
+} */
 </style>
